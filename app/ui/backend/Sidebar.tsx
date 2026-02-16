@@ -28,14 +28,14 @@ const sidebarMenu = [
   {
     label: "Management",
     items: [
-      { name: "Books", href: "/admin/books", icon: BookIcon },
+      { name: "Books", href: "/author/books", icon: BookIcon },
       { name: "Authors", href: "/admin/authors", icon: AuthorIcon },
       {
         name: "Categories",
-        href: "/admin/categories",
+        href: "/author/categories",
         icon: CategoryIcon,
       },
-      { name: "Members", href: "/admin/members", icon: MembersIcon },
+      { name: "Members", href: "/author/members", icon: MembersIcon },
     ],
   },
   {
