@@ -1,48 +1,49 @@
-import { usePathname } from "next/navigation";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
 
-export default function BreadCrumb() {
+export default function DynamicBreadcrumb() {
   const pathname = usePathname();
-  const breadcrumbs = pathname.replace(/^\//, "").split("/").filter(Boolean);
+  const pathNames = pathname.split("/").filter((path) => path !== "");
 
   return (
-    <nav className="hidden sm:flex items-center gap-1 text-sm">
-      {breadcrumbs.map((crumb, i) => {
-        const href = "/" + breadcrumbs.slice(0, i + 1).join("/");
-        const isLast = i === breadcrumbs.length - 1;
-        return (
-          <span key={href} className="flex items-center gap-1">
-            {i > 0 && (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-3.5 w-3.5 text-neutral-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            )}
-            {isLast ? (
-              <span className="font-medium capitalize text-neutral-200">
-                {crumb}
-              </span>
-            ) : (
-              <Link
-                href={href}
-                className="capitalize text-neutral-500 hover:text-neutral-300 transition-colors"
-              >
-                {crumb}
-              </Link>
-            )}
-          </span>
-        );
-      })}
-    </nav>
+    <Breadcrumb>
+      <BreadcrumbList>
+        {pathNames.map((link, index) => {
+          const href = `/${pathNames.slice(0, index + 1).join("/")}`;
+          const itemTitle =
+            link[0].toUpperCase() + link.slice(1).replace(/-/g, " ");
+
+          const isFirst = index === 0;
+          const isLast = index === pathNames.length - 1;
+
+          return (
+            <React.Fragment key={index}>
+              <BreadcrumbItem>
+                {isLast ? (
+                  <BreadcrumbPage>{itemTitle}</BreadcrumbPage>
+                ) : isFirst ? (
+                  <span className="text-muted-foreground">{itemTitle}</span>
+                ) : (
+                  <BreadcrumbLink asChild>
+                    <Link href={href}>{itemTitle}</Link>
+                  </BreadcrumbLink>
+                )}
+              </BreadcrumbItem>
+
+              {!isLast && <BreadcrumbSeparator />}
+            </React.Fragment>
+          );
+        })}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }

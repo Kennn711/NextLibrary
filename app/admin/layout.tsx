@@ -1,9 +1,17 @@
 "use client";
 import Sidebar from "@/app/ui/backend/Sidebar";
-import BreadCrumb from "@/app/ui/backend/Breadcrumb";
 import { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import DynamicBreadcrumb from "../ui/backend/Breadcrumb";
 
 /* ------------------------------------------------------------------ */
 /*  LAYOUT COMPONENT                                                   */
@@ -61,7 +69,7 @@ export default function AdminLayout({
             </svg>
           </button>
 
-          <BreadCrumb />
+          <DynamicBreadcrumb />
 
           <div className="flex-1" />
 

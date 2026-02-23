@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 export default function Index() {
   const cards = [
     {
@@ -41,6 +43,9 @@ export default function Index() {
         What would you like to do?
       </p>
 
+      <div>
+        <Button>Click me</Button>
+      </div>
       {/* Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
         {cards.map((card) => (
